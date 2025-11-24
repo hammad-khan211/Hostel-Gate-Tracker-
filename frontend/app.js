@@ -38,6 +38,7 @@ async function loadLogs() {
   <td>${item.person_id}</td>
  <td>${item.room_no || "-"}</td>
 <td>${item.block || "-"}</td>
+<td>${item.purpose}</td>
 
   <td>${item.status}</td>
   <td>${item.time_in ? new Date(item.time_in).toLocaleString() : "-"}</td>
