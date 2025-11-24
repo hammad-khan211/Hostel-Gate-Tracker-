@@ -1,0 +1,96 @@
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzIq00_oJTTw6yRfEGjug6isbJTUyAxP3OR7bRHKaU7GEsgpu88L-D2kv72L632QzvqvI1ECs-HobpUntvCFkHhaHI-RXYS5rsNlqy-MQt3xvyIzoXTKtWBvcdIh05ygvQtCOOpCpCne2OR=s1360-w1360-h1020-rw');
+  height: 100vh;
+    background-size: cover;        /* Make image cover full screen */
+  background-position: center;    /* Keep focus at the center */
+  background-repeat: no-repeat;   /* Prevent tiling */
+  background-attachment: fixed;   /* Parallax-style fixed background */
+  backdrop-filter: blur(2px);  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.top-header {
+  width: 100%;
+  text-align: center;
+  padding: 18px;
+  font-size: 28px;
+  font-weight: bold;
+  color: white;
+  background: linear-gradient(90deg, #0068b5, #00a6ff);  /* Blue gradient */
+  letter-spacing: 1px;
+  border-bottom: 3px solid rgba(255,255,255,0.4);
+   box-shadow: 0 0 15px rgba(0, 181, 255, 0.6);
+}
+
+
+.login-card {
+  margin-top: 45px;
+  background: rgba(255, 255, 255, 0.90);
+  padding: 35px 50px;
+  width: 350px;
+  border-radius: 16px;
+  box-shadow: 0px 0px 20px rgba(0,0,0,0.25);
+  text-align: center;
+}
+
+.guard-icon {
+  width: 100px;
+  margin-bottom: 10px;
+}
+
+.login-card h2 {
+  margin-bottom: 20px;
+  color: #0b3e6f;
+  font-weight: 600;
+}
+
+input {
+  width: 90%;
+  padding: 12px;
+  margin: 10px 0;
+  border: 1px solid #b6b6b6;
+  border-radius: 8px;
+  font-size: 15px;
+  text-align: center;
+}
+
+input:focus {
+  outline: none;
+  border-color: #0077ff;
+  box-shadow: 0 0 4px #0077ff;
+}
+
+.btn-login {
+  width: 100%;
+  padding: 12px;
+  margin-top: 14px;
+  background: #00b0ff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-login:hover {
+  background: #0085c9;
+}
+
+.links a {
+  display: block;
+  margin-top: 18px;
+  font-size: 14px;
+  color: #003d73;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.links a:hover {
+  text-decoration: underline;
+}
