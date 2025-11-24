@@ -16,9 +16,10 @@ app.use(cors());
 app.use(express.json());
 
 // DB Connection
-mongoose.connect("mongodb://localhost:27017/gatetracker")
-  .then(() => console.log("MongoDB connected"))
+mongoose.connect("mongodb+srv://admin:admin123@gatetrackercluster.xvkraix.mongodb.net/gatetracker?retryWrites=true&w=majority")
+  .then(() => console.log("MongoDB Atlas connected"))
   .catch(err => console.log(err));
+
 
 
 // -------- Guard Auth Routes (paste here) --------
