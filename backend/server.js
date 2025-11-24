@@ -1,48 +1,50 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const Entry = require("./entryModel");
+
+// -------- Add these new lines --------
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const Entry = require("./entryModel");
 const Guard = require("./guardModel");
 const auth = require("./auth");
-
 const SECRET_KEY = "secret123";
+// -------------------------------------
 
-// Initialize App
 const app = express();
-app.use(express.json());
-
-// CORS Setup
-app.use(cors({
-  origin: [
-    "https://hostel-gate-tracker.netlify.app",
-    "http://localhost:5500",
-    "http://127.0.0.1:5500"
-  ],
-  methods: "GET,POST,PUT,DELETE",
-  allowedHeaders: "Content-Type, Authorization"
-}));
-
+ app.use(cors()); 
+ app.use(express.json());
 // DB Connection
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDB Atlas connected"))
   .catch(err => console.log(err));
 
 
-// AUTH ROUTES
+  // mongodb+srv://admin:admin123@gatetrackercluster.xvkraix.mongodb.net/gatetracker?retryWrites=true&w=majority
+
+
+// -------- Guard Auth Routes (paste here) --------
 app.post("/signup", async (req, res) => {
+  console.log("Signup hit"); // Debugging
+
   const { username, password } = req.body;
+  console.log("Received:", req.body); // Debugging
 
   try {
     const hashedPass = await bcrypt.hash(password, 10);
+    console.log("Password hashed");
+
     const guard = new Guard({ username, password: hashedPass });
     await guard.save();
+    console.log("Saved to DB");
+
     res.send({ message: "Guard created successfully" });
   } catch (err) {
-    res.status(500).send({ message: "Error occurred" });
+    console.error("Error:", err);
+    res.status(500).send({ message: "Error occurred", error: err.message });
   }
 });
+
 
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
@@ -54,21 +56,24 @@ app.post("/login", async (req, res) => {
   if (!isMatch) return res.status(400).send({ message: "Invalid password" });
 
   const token = jwt.sign({ id: guard._id }, SECRET_KEY, { expiresIn: "1d" });
+
   res.send({ message: "Login successful", token });
 });
+// ------------------------------------------------
 
 
-// ENTRY SYSTEM ROUTES
+// -------- Protect Entry System Routes --------
 app.post("/entry", auth, async (req, res) => {
   const data = new Entry({
     ...req.body,
     status: "OUT",
-    time_out: new Date()
+    time_out: new Date()    // set time_out when entry is created
   });
 
   await data.save();
   res.send({ message: "Entry Added" });
 });
+
 
 app.put("/exit/:id", auth, async (req, res) => {
   await Entry.findByIdAndUpdate(req.params.id, {
@@ -79,11 +84,14 @@ app.put("/exit/:id", auth, async (req, res) => {
   res.send({ message: "Marked IN" });
 });
 
+
 app.get("/logs", auth, async (req, res) => {
   const logs = await Entry.find();
   res.json(logs);
 });
+// ----------------------------------------------
 
 
-// Start Server
+// Server listening
 app.listen(4000, () => console.log("Server running on port 4000"));
+
