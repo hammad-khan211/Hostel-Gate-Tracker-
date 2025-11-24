@@ -11,9 +11,17 @@ const auth = require("./auth");
 const SECRET_KEY = "secret123";
 // -------------------------------------
 
-const app = express();
-app.use(cors());
-app.use(express.json());
+const cors = require("cors");
+
+app.use(cors({
+  origin: [
+    "https://hostel-gate-tracker.netlify.app",  // Frontend Live URL
+    "http://localhost:5500",
+    "http://127.0.0.1:5500"
+  ],
+  methods: "GET,POST,PUT,DELETE",
+  allowedHeaders: "Content-Type, Authorization"
+}));
 
 // DB Connection
 mongoose.connect(process.env.MONGODB_URI)
