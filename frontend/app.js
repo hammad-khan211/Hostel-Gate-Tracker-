@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:4000";
+const BASE_URL = "https://hostel-gate-tracker.onrender.com";
+
 
 // Submit Entry
 document.getElementById("entryForm").addEventListener("submit", async (e) => {
