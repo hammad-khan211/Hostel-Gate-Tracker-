@@ -1,57 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gate Tracker</title>
-  <link rel="stylesheet" href="style.css"> 
+  <title>Guard Login</title>
+   <link rel="stylesheet" href="login.css"> 
 </head>
 <body>
+  <header class="top-header">
+    ABES Engineering College Boys' Hostel Entry Tracker
+  </header>
 
-<header class="top-header">
-  ABES Engineering College Boys' Hostel Entry Tracker
-</header>
+  <div class="login-card">
+    <img src="https://cdn.pixabay.com/photo/2023/10/09/08/59/security-8303673_1280.png" class="guard-icon">
 
-<div class="container">
-  
-  <h1>Gate Entry Form</h1>
-  <form id="entryForm" class="entry-form">
-    <input type="text" id="name" placeholder="Name" required>
-    <input type="text" id="personid" placeholder="Roll No" required>
-    <input type="text" id="room" placeholder="Room No" required>
+    <h2>Security Guard Login</h2>
 
-    <select id="block" required>
-      <option value="">Select Block</option>
-      <option>A Block</option>
-      <option>B Block</option>
-      <option>C Block</option>
-      <option>D Block</option>
-    </select>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="submit" class="btn-login">Login</button>
+    </form>
 
-    <input type="text" id="purpose" placeholder="Purpose">
-    <button type="submit" class="btn-submit">Record Entry</button>
-  </form>
-
-  <h2>Logs</h2>
-  <button onclick="loadLogs()" class="refresh-btn">Refresh Logs</button>
-
-  <div class="table-container">
-    <table id="logTable">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Roll</th>
-          <th>Room</th>
-          <th>Block</th>
-          <th>Status</th>
-          <th>Time IN</th>
-          <th>Time OUT</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody></tbody>
-    </table>
+    <div class="links">
+      <a href="https://www.abes.ac.in" target="_blank">Visit ABES College Website</a>
+    </div>
   </div>
-</div>
+  
 
-<script src="app.js"></script>
+  <script>
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const res = await fetch("http://localhost:4000/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          username: document.getElementById("username").value,
+          password: document.getElementById("password").value
+        })
+      });
+
+      const data = await res.json();
+      if (data.token) {
+        alert("Login successful");
+        localStorage.setItem("token", data.token);
+        window.location.href = "home.html";
+      } else {
+        alert(data.message);
+      }
+    });
+  </script>
 </body>
+
 </html>
