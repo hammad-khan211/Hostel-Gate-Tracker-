@@ -26,7 +26,9 @@ app.use(cors({
 }));
 
 // Allow preflight requests
-app.options('*', cors());
+app.options("*", cors());
+
+
 
 // DB Connection
 mongoose.connect(process.env.MONGODB_URI)
