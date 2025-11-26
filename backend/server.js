@@ -25,9 +25,6 @@ app.use(cors({
   allowedHeaders: "Content-Type, Authorization"
 }));
 
-// Allow preflight requests
-// Enable CORS preflight for all routes
-app.options("/*", cors());
 
 
 
