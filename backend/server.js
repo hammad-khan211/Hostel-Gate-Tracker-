@@ -104,6 +104,13 @@ app.delete("/clear-logs", async (req, res) => {
 });
 
 
+//Test Route
+app.get("/test-route", (req, res) => {
+  res.send("Test route working");
+});
+
+
+
 
 
 // Start Server
