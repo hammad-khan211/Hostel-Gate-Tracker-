@@ -7,19 +7,30 @@ document.getElementById("entryForm").addEventListener("submit", async (e) => {
 
   await fetch(`${BASE_URL}/entry`, {
     method: "POST",
-    headers: { "Content-Type": "application/json", "Authorization": localStorage.getItem("token") },
+    headers: { 
+      "Content-Type": "application/json",
+      "Authorization": localStorage.getItem("token")
+    },
     body: JSON.stringify({
-  name: document.getElementById("name").value,
-  person_id: document.getElementById("personid").value,
-  room_no: document.getElementById("room").value,
-  block: document.getElementById("block").value,
-  purpose: document.getElementById("purpose").value
-})
+      name: document.getElementById("name").value,
+      person_id: document.getElementById("personid").value,
+      room_no: document.getElementById("room").value,
+      block: document.getElementById("block").value,
+      purpose: document.getElementById("purpose").value
+    })
   });
 
   alert("Entry recorded!");
+
+  // ⭐ CLEAR INPUT FIELDS AUTOMATICALLY ⭐
+  document.getElementById("entryForm").reset();
+
+  // ⭐ OPTIONAL: Auto-focus back to the Name field
+  document.getElementById("name").focus();
+
   loadLogs();
 });
+
 
 // Load Logs
 async function loadLogs() {
