@@ -25,6 +25,9 @@ app.use(cors({
   allowedHeaders: "Content-Type, Authorization"
 }));
 
+// Allow preflight requests
+app.options('*', cors());
+
 // DB Connection
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => console.log("MongoDB Atlas connected"))
@@ -90,7 +93,7 @@ app.get("/logs", auth, async (req, res) => {
 });
 
 // DELETE ALL LOGS
-app.delete("/clear-logs", auth, async (req, res) => {
+app.delete("/clear-logs", async (req, res) => {
   try {
     await Entry.deleteMany({});
     res.send({ message: "All logs cleared successfully" });
@@ -98,6 +101,7 @@ app.delete("/clear-logs", auth, async (req, res) => {
     res.status(500).send({ message: "Error clearing logs" });
   }
 });
+
 
 
 
