@@ -26,7 +26,8 @@ app.use(cors({
 }));
 
 // Allow preflight requests
-app.options("*", cors());
+// Enable CORS preflight for all routes
+app.options("/*", cors());
 
 
 
