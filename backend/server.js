@@ -135,6 +135,73 @@ app.get("/export-csv", auth, async (req, res) => {
 });
 
 
+const PDFDocument = require("pdfkit");
+
+// EXPORT LOGS AS PDF
+app.get("/export-pdf", auth, async (req, res) => {
+  try {
+    const logs = await Entry.find().lean();
+
+    if (!logs.length) {
+      return res.status(404).send({ message: "No logs available to export" });
+    }
+
+    // Create PDF document
+    const doc = new PDFDocument({ margin: 40, size: "A4" });
+
+    let filename = "hostel_logs.pdf";
+    filename = encodeURIComponent(filename);
+
+    // Set headers
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+
+    // Pipe PDF to response
+    doc.pipe(res);
+
+    // Title
+    doc.fontSize(20).text("Hostel Gate Entry Logs", { align: "center" });
+    doc.moveDown();
+    doc.fontSize(12).text("Generated at: " + new Date().toLocaleString());
+    doc.moveDown();
+
+    // Table header
+    const tableTop = 140;
+    const cellSpacing = 20;
+
+    doc.fontSize(12).text("Name", 40, tableTop);
+    doc.text("Room", 150, tableTop);
+    doc.text("Status", 220, tableTop);
+    doc.text("Time Out", 300, tableTop);
+    doc.text("Time In", 430, tableTop);
+
+    let y = tableTop + 20;
+
+    // Table rows
+    logs.forEach(log => {
+      doc.text(log.name || "", 40, y);
+      doc.text(log.room || "", 150, y);
+      doc.text(log.status || "", 220, y);
+      doc.text(log.time_out ? new Date(log.time_out).toLocaleString() : "-", 300, y);
+      doc.text(log.time_in ? new Date(log.time_in).toLocaleString() : "-", 430, y);
+      y += cellSpacing;
+
+      // Page break if needed
+      if (y > 750) {
+        doc.addPage();
+        y = 40;
+      }
+    });
+
+    doc.end();
+  } catch (err) {
+    console.error("PDF export error:", err);
+    res.status(500).send({ message: "Error generating PDF" });
+  }
+});
+
+
+
 
 //Test Route
 app.get("/test-route", (req, res) => {

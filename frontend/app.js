@@ -125,6 +125,38 @@ async function downloadCSV() {
 }
 
 
+//PDF
+async function downloadPDF() {
+  try {
+    const res = await fetch(`${BASE_URL}/export-pdf`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+
+    if (!res.ok) {
+      alert("Failed to export PDF.");
+      return;
+    }
+
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "hostel_logs.pdf";
+    a.click();
+
+    window.URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error("PDF download error:", err);
+    alert("Error downloading PDF.");
+  }
+}
+
+
+
 
 
 
