@@ -30,24 +30,43 @@ async function loadLogs() {
   const logs = await res.json();
   console.log("LOGS DATA:", logs); 
 
-  let table = "";
-  logs.forEach(item => {
-   table += `
-<tr class="${item.status === 'OUT' ? '' : 'closed-row'}">
-  <td>${item.name}</td>
-  <td>${item.person_id}</td>
- <td>${item.room_no || "-"}</td>
-<td>${item.block || "-"}</td>
-<td>${item.purpose}</td>
+let table = "";
+logs.forEach(item => {
+  table += `
+<tr style="transition:0.2s;
+           background: ${item.status === 'OUT' ? '#ffffff' : '#2a2a2a'};
+           color: ${item.status === 'OUT' ? '#000000' : '#E0E0E0'};
+           border-bottom:1px solid #555;"
+    onmouseover="this.style.background='#6C63FF22'"
+    onmouseout="this.style.background='${item.status === 'OUT' ? '#ffffff' : '#2a2a2a'}'">
 
-  <td>${item.status}</td>
-  <td>${item.time_in ? new Date(item.time_in).toLocaleString() : "-"}</td>
-  <td>${item.time_out ? new Date(item.time_out).toLocaleString() : "-"}</td>
-  <td>${item.status === "OUT" ? `<button onclick="markExit('${item._id}')">Mark IN</button>` : "Closed"}</td>
+  <td style="padding:10px; border-right:1px solid #555;">${item.name}</td>
+  <td style="padding:10px; border-right:1px solid #555;">${item.person_id}</td>
+  <td style="padding:10px; border-right:1px solid #555;">${item.room_no || "-"}</td>
+  <td style="padding:10px; border-right:1px solid #555;">${item.block || "-"}</td>
+  <td style="padding:10px; border-right:1px solid #555;">${item.purpose}</td>
+
+  <td style="padding:10px; border-right:1px solid #555; font-weight:bold;">${item.status}</td>
+  <td style="padding:10px; border-right:1px solid #555;">${item.time_in ? new Date(item.time_in).toLocaleString() : "-"}</td>
+  <td style="padding:10px; border-right:1px solid #555;">${item.time_out ? new Date(item.time_out).toLocaleString() : "-"}</td>
+
+  <td style="padding:10px; border-right:none;">
+    ${
+      item.status === "OUT"
+      ? `<button onclick="markExit('${item._id}')" 
+           style="background:#6C63FF; color:white; border:none; padding:6px 10px; border-radius:6px; cursor:pointer;">
+           Mark IN
+         </button>`
+      : `<span style="color:gray;">Closed</span>`
+    }
+  </td>
+
 </tr>
 `;
+});
 
-  });
+
+
 
   document.querySelector("#logTable tbody").innerHTML = table;
 }
@@ -154,6 +173,31 @@ async function downloadPDF() {
     alert("Error downloading PDF.");
   }
 }
+
+
+//Dark Theme
+document.addEventListener("DOMContentLoaded", () => {
+  const toggleBtn = document.getElementById("themeToggle");
+
+  // Load saved theme
+  if (localStorage.getItem("theme") === "dark") {
+    document.body.classList.add("dark");
+    toggleBtn.textContent = "☀️ Light Mode";
+  }
+
+  toggleBtn.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+
+    if (document.body.classList.contains("dark")) {
+      localStorage.setItem("theme", "dark");
+      toggleBtn.textContent = "☀️ Light Mode";
+    } else {
+      localStorage.setItem("theme", "light");
+      toggleBtn.textContent = "🌙 Dark Mode";
+    }
+  });
+});
+
 
 
 

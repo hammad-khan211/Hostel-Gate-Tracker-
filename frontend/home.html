@@ -13,22 +13,46 @@
 <div class="container">
   
   <h1>Gate Entry Form</h1>
-  <form id="entryForm" class="entry-form">
-    <input type="text" id="name" placeholder="Name" required>
-    <input type="text" id="personid" placeholder="Roll No" required>
-    <input type="text" id="room" placeholder="Room No" required>
+  <button id="themeToggle"style="float:right; margin-right:20px;">
+  🌙 Dark Mode
+</button>
 
-    <select id="block" required>
-      <option value="">Select Block</option>
-      <option>A Block</option>
-      <option>B Block</option>
-      <option>C Block</option>
-      <option>D Block</option>
-    </select>
+  <form id="entryForm" style="
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+">
 
-    <input type="text" id="purpose" placeholder="Purpose">
-    <button type="submit" class="btn-submit">Record Entry</button>
-  </form>
+  <input type="text" id="name" placeholder="Name" required
+    style="flex: 1 1 180px; padding: 12px; border-radius: 8px; font-size: 15px; border: 1px solid #ccc;" />
+
+  <input type="text" id="personid" placeholder="Roll No" required
+    style="flex: 1 1 180px; padding: 12px; border-radius: 8px; font-size: 15px; border: 1px solid #ccc;" />
+
+  <input type="text" id="room" placeholder="Room No" required
+    style="flex: 1 1 180px; padding: 12px; border-radius: 8px; font-size: 15px; border: 1px solid #ccc;" />
+
+  <select id="block" required
+    style="flex: 1 1 180px; padding: 12px; border-radius: 8px; font-size: 15px; border: 1px solid #ccc;">
+    <option value="">Select Block</option>
+    <option>ABB</option>
+    <option>RKB</option>
+    <option>CKB</option>
+    <option>DNB</option>
+  </select>
+
+  <input type="text" id="purpose" placeholder="Purpose"
+    style="flex: 1 1 180px; padding: 12px; border-radius: 8px; font-size: 15px; border: 1px solid #ccc;" />
+
+  <button type="submit" class="btn-submit"
+    style="width: 100%; padding: 12px; border-radius: 8px; font-size: 17px; font-weight: bold; background: #00b0ff; color: white; border: none; cursor: pointer;">
+    Record Entry
+  </button>
+
+</form>
+
+
 
   <h2>Logs</h2>
   <button onclick="loadLogs()" class="refresh-btn">Refresh Logs</button>
@@ -47,15 +71,16 @@
     <table id="logTable">
       <thead>
         <tr>
-          <th>Name</th>
-          <th>Roll</th>
-          <th>Room</th>
-          <th>Block</th>
-          <th>Purpose</th>
-          <th>Status</th>
-          <th>Time IN</th>
-          <th>Time OUT</th>
-          <th>Action</th>
+         <th style="border-right:1px solid #555;">Name</th>
+<th style="border-right:1px solid #555;">Roll</th>
+<th style="border-right:1px solid #555;">Room</th>
+<th style="border-right:1px solid #555;">Block</th>
+<th style="border-right:1px solid #555;">Purpose</th>
+<th style="border-right:1px solid #555;">Status</th>
+<th style="border-right:1px solid #555;">Time IN</th>
+<th style="border-right:1px solid #555;">Time OUT</th>
+<th style="border-right:none;">Action</th>
+
         </tr>
       </thead>
       <tbody></tbody>

@@ -1,61 +1,85 @@
+/* =========================================
+   THEME VARIABLES (LIGHT MODE)
+========================================= */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: rgba(255, 255, 255, 0.90);
+  --header-bg: linear-gradient(90deg, #0068b5, #00a6ff);
+  --button-bg: #00b0ff;
+  --button-text: #ffffff;
+  --table-bg: #ffffff;
+  --table-text: #000000;
+  --table-header-bg: #014f86;
+  --table-header-text: #ffffff;
 
-.closed-row {
-  text-decoration: line-through;
-  opacity: 0.6;
-  background: rgba(255, 0, 0, 0.15);
+  --bg-img: url('https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzIq00_oJTTw6yRfEGjug6isbJTUyAxP3OR7bRHKaU7GEsgpu88L-D2kv72L632QzvqvI1ECs-HobpUntvCFkHhaHI-RXYS5rsNlqy-MQt3xvyIzoXTKtWBvcdIh05ygvQtCOOpCpCne2OR=s1360-w1360-h1020-rw');
 }
 
+/* =========================================
+   DARK THEME (NEW & IMPROVED)
+========================================= */
+.dark {
+  --bg-color: #121212;
+  --text-color: #E0E0E0;
+  --card-bg: rgba(30, 30, 30, 0.7);
+  --header-bg: linear-gradient(90deg, #2E2B5F, #6C63FF);
+  --button-bg: #6C63FF;
+  --button-text: #ffffff;
+
+  --table-bg: #1F1F1F;
+  --table-text: #E0E0E0;
+  --table-header-bg: #6C63FF;
+  --table-header-text: #ffffff;
+
+  --bg-img: none;
+}
+
+/* =========================================
+   GENERAL PAGE STYLES
+========================================= */
 body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
-  background-image: url('https://lh3.googleusercontent.com/gps-cs-s/AG0ilSzIq00_oJTTw6yRfEGjug6isbJTUyAxP3OR7bRHKaU7GEsgpu88L-D2kv72L632QzvqvI1ECs-HobpUntvCFkHhaHI-RXYS5rsNlqy-MQt3xvyIzoXTKtWBvcdIh05ygvQtCOOpCpCne2OR=s1360-w1360-h1020-rw');
+  background-color: var(--bg-color) !important;
+  color: var(--text-color) !important;
+
+  background-image: var(--bg-img);
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
 }
 
+/* HEADER */
 .top-header {
   width: 100%;
   text-align: center;
   padding: 18px;
   font-size: 28px;
   font-weight: bold;
-  color: white;
-  background: linear-gradient(90deg, #0068b5, #00a6ff);
+  color: var(--text-color);
+  background: var(--header-bg);
   letter-spacing: 1px;
+  box-shadow: 0px 0px 20px rgba(108, 99, 255, 0.4);
 }
 
+/* MAIN CONTAINER */
 .container {
   width: 900px;
   margin: 40px auto;
   padding: 25px;
-  background: rgba(255,255,255,0.9);
+  background: var(--card-bg);
   border-radius: 15px;
-  box-shadow: 0 0 15px rgba(0,0,0,0.3);
+  box-shadow: 0 0 25px rgba(108, 99, 255, 0.3);
+  backdrop-filter: blur(4px);
 }
 
-h1, h2 {
-  text-align: center;
-  color: #004d85;
-  margin-bottom: 20px;
-}
-
-.entry-form input,
-.entry-form select {
-  width: 94%;
-  padding: 12px;
-  margin: 10px auto;
-  display: block;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 15px;
-}
-
+/* BUTTONS */
 .btn-submit, .refresh-btn {
   width: 98%;
   padding: 12px;
-  background: #00b0ff;
-  color: white;
+  background: var(--button-bg);
+  color: var(--button-text);
   border-radius: 8px;
   border: none;
   font-size: 17px;
@@ -67,48 +91,101 @@ h1, h2 {
 }
 
 .btn-submit:hover, .refresh-btn:hover {
-  background: #0085c9;
+  filter: brightness(1.1);
+  box-shadow: 0 0 12px rgba(108, 99, 255, 0.6);
 }
 
-/* Table Styling */
-.table-container {
-  overflow-x: auto;
-  margin-top: 20px;
-}
-
+/* TABLE FIXED FOR DARK MODE */
 table {
   width: 100%;
   border-collapse: collapse;
-  background: white;
+  background: var(--table-bg);
+  color: var(--table-text);
   border-radius: 10px;
   overflow: hidden;
 }
 
-th, td {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+th {
+  background: var(--table-header-bg);
+  color: var(--table-header-text);
 }
 
-th {
-  background: #014f86;
-  color: white;
+td {
+  background: var(--table-bg);
+  color: var(--table-text);
 }
 
 tr:nth-child(even) {
-  background: #eef7ff;
+  background: rgba(255, 255, 255, 0.03);
 }
 
 tr:hover {
-  background: #d9f1ff;
+  background: rgba(108, 99, 255, 0.15);
 }
 
-button {
-  padding: 6px 10px;
-  border-radius: 5px;
+
+/* =====================================
+   ENTRY FORM SECTION (FIXED + MODERN)
+===================================== */
+
+.form-section {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.input-row {
+  display: flex;
+  gap: 12px;
+}
+
+.input-row input,
+.input-row select {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 15px;
+  border: 1px solid var(--input-border);
+  background: var(--input-bg);
+  color: var(--input-text);
+}
+
+/* Light Mode Input Colors */
+:root {
+  --input-bg: #ffffff;
+  --input-text: #000000;
+  --input-border: #bfbfbf;
+}
+
+/* Dark Mode Input Colors */
+.dark {
+  --input-bg: #1F1F1F;
+  --input-text: #E0E0E0;
+  --input-border: #444444;
+}
+
+.input-row input::placeholder {
+  color: gray;
+}
+
+
+#themeToggle {
+  position: absolute;
+  top: 20px;
+  right: 30px;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: var(--button-bg);
+  color: var(--button-text);
+  font-weight: bold;
+  border: none;
   cursor: pointer;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 
-
-
-
+.closed-row {
+  text-decoration: line-through !important;
+  opacity: 0.6 !important;
+  background: rgba(255,0,0,0.15) !important;
+}

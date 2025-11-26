@@ -1,3 +1,25 @@
+/* THEME VARIABLES */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+  --card-bg: rgba(255, 255, 255, 0.90);
+  --header-bg: linear-gradient(90deg, #0068b5, #00a6ff);
+  --button-bg: #00b0ff;
+  --button-text: #ffffff;
+}
+
+/* DARK THEME */
+.dark {
+  --bg-color: #121212;
+  --text-color: #ffffff;
+  --card-bg: rgba(40, 40, 40, 0.9);
+  --header-bg: linear-gradient(90deg, #000000, #333333);
+  --button-bg: #4a90e2;
+  --button-text: #ffffff;
+}
+
+
+
 body {
   margin: 0;
   font-family: 'Segoe UI', Arial, sans-serif;
@@ -11,6 +33,11 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  color: var(--text-color);
+background-color: var(--bg-color);
+
+  
+  
 }
 
 .top-header {
@@ -19,8 +46,9 @@ body {
   padding: 18px;
   font-size: 28px;
   font-weight: bold;
-  color: white;
-  background: linear-gradient(90deg, #0068b5, #00a6ff);  /* Blue gradient */
+  color: var(--text-color);
+background: var(--header-bg);
+
   letter-spacing: 1px;
   border-bottom: 3px solid rgba(255,255,255,0.4);
    box-shadow: 0 0 15px rgba(0, 181, 255, 0.6);
@@ -29,7 +57,8 @@ body {
 
 .login-card {
   margin-top: 45px;
-  background: rgba(255, 255, 255, 0.90);
+  background: var(--card-bg);
+
   padding: 35px 50px;
   width: 350px;
   border-radius: 16px;
@@ -68,8 +97,9 @@ input:focus {
   width: 100%;
   padding: 12px;
   margin-top: 14px;
-  background: #00b0ff;
-  color: white;
+  background: var(--button-bg);
+color: var(--button-text);
+
   border: none;
   border-radius: 8px;
   font-size: 17px;
