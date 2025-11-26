@@ -103,6 +103,38 @@ app.delete("/clear-logs", async (req, res) => {
   }
 });
 
+// EXPORT LOGS AS CSV
+app.get("/export-csv", auth, async (req, res) => {
+  try {
+    const logs = await Entry.find().lean();
+
+    if (!logs.length) {
+      return res.status(404).send({ message: "No logs found to export" });
+    }
+
+    // Extract headers
+    const keys = Object.keys(logs[0]);
+    const header = keys.join(",") + "\n";
+
+    // Convert each log entry to CSV row
+    const rows = logs.map(obj => {
+      return keys.map(key => JSON.stringify(obj[key] ?? "")).join(",");
+    }).join("\n");
+
+    const csvData = header + rows;
+
+    // Set headers for download
+    res.setHeader("Content-Type", "text/csv");
+    res.setHeader("Content-Disposition", "attachment; filename=hostel_logs.csv");
+
+    res.send(csvData);
+  } catch (err) {
+    console.error("CSV Export Error:", err);
+    res.status(500).send({ message: "Error exporting logs" });
+  }
+});
+
+
 
 //Test Route
 app.get("/test-route", (req, res) => {

@@ -95,6 +95,36 @@ async function clearLogs() {
   }
 }
 
+async function downloadCSV() {
+  try {
+    const res = await fetch(`${BASE_URL}/export-csv`, {
+      method: "GET",
+      headers: {
+        "Authorization": `Bearer ${localStorage.getItem("token")}`
+      }
+    });
+
+    if (!res.ok) {
+      alert("Failed to export logs.");
+      return;
+    }
+
+    const blob = await res.blob();
+    const url = window.URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = "hostel_logs.csv";
+    a.click();
+
+    window.URL.revokeObjectURL(url);
+  } catch (err) {
+    console.error("CSV download error:", err);
+    alert("Error downloading CSV.");
+  }
+}
+
+
 
 
 
