@@ -105,7 +105,7 @@ async function downloadCSV() {
     });
 
     if (!res.ok) {
-      alert("Failed to export logs.");
+      alert("Unauthorized or failed to export CSV.");
       return;
     }
 
