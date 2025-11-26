@@ -89,6 +89,19 @@ app.get("/logs", auth, async (req, res) => {
   res.json(logs);
 });
 
+// DELETE ALL LOGS
+app.delete("/clear-logs", auth, async (req, res) => {
+  try {
+    await Entry.deleteMany({});
+    res.send({ message: "All logs cleared successfully" });
+  } catch (err) {
+    res.status(500).send({ message: "Error clearing logs" });
+  }
+});
+
+
 
 // Start Server
-app.listen(4000, () => console.log("Server running on port 4000"));
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+
