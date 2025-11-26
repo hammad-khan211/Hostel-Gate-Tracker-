@@ -1,3 +1,4 @@
+console.log(">>> Running CORRECT backend server.js");
 
 const express = require("express");
 const mongoose = require("mongoose");
