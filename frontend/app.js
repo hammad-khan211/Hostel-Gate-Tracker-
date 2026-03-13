@@ -5,17 +5,28 @@ const BASE_URL = "https://hostel-gate-tracker.onrender.com";
 document.getElementById("entryForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
+  const name = document.getElementById("name").value.trim();
+  const roll = document.getElementById("roll").value.trim();
+  const room = document.getElementById("room").value.trim();
+  const block = document.getElementById("block").value;
+  const purpose = document.getElementById("purpose").value.trim();
+
+  if (!name || !roll || !room) {
+    alert("Name, Roll, and Room are required!");
+    return;
+  }
+
   const res = await fetch(`${BASE_URL}/entry`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      name: document.getElementById("name").value,
-      roll: document.getElementById("roll").value,
-      room: document.getElementById("room").value,
-      block: document.getElementById("block").value,
-      purpose: document.getElementById("purpose").value
+      name,
+      roll,
+      room,
+      block,
+      purpose
     })
   });
 
@@ -29,8 +40,6 @@ document.getElementById("entryForm").addEventListener("submit", async (e) => {
   alert("Entry recorded!");
 
   document.getElementById("entryForm").reset();
-  document.getElementById("name").focus();
-
   loadLogs();
 });
 
