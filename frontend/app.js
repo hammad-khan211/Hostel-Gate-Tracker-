@@ -5,7 +5,7 @@ const BASE_URL = "https://hostel-gate-tracker.onrender.com";
 document.getElementById("entryForm").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  await fetch(`${BASE_URL}/entry`, {
+  const res = await fetch(`${BASE_URL}/entry`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -18,6 +18,13 @@ document.getElementById("entryForm").addEventListener("submit", async (e) => {
       purpose: document.getElementById("purpose").value
     })
   });
+
+  const data = await res.json();
+
+  if (!res.ok) {
+    alert(data.message || "Entry failed");
+    return;
+  }
 
   alert("Entry recorded!");
 
@@ -32,16 +39,24 @@ document.getElementById("entryForm").addEventListener("submit", async (e) => {
 // Load Logs
 async function loadLogs() {
 
-  const res = await fetch(`${BASE_URL}/logs`);
-  const logs = await res.json();
+  try {
 
-  console.log("LOGS DATA:", logs);
+    const res = await fetch(`${BASE_URL}/logs`);
+    const logs = await res.json();
 
-  let table = "";
+    console.log("LOGS DATA:", logs);
 
-  logs.forEach(item => {
+    // Safety check
+    if (!Array.isArray(logs)) {
+      console.error("Invalid logs response:", logs);
+      return;
+    }
 
-    table += `
+    let table = "";
+
+    logs.forEach(item => {
+
+      table += `
 <tr style="transition:0.2s;
            background:${item.status === 'OUT' ? '#ffffff' : '#2a2a2a'};
            color:${item.status === 'OUT' ? '#000000' : '#E0E0E0'};
@@ -80,14 +95,18 @@ ${
 
 </tr>
 `;
-  });
+    });
 
-  document.querySelector("#logTable tbody").innerHTML = table;
+    document.querySelector("#logTable tbody").innerHTML = table;
+
+  } catch (err) {
+    console.error("Error loading logs:", err);
+  }
 }
 
 
 
-// Mark Exit (OUT ➜ IN)
+// Mark Exit
 async function markExit(id) {
 
   await fetch(`${BASE_URL}/exit/${id}`, {
