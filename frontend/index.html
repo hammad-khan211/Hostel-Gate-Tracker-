@@ -27,35 +27,67 @@
 
   <!-- Demo credentials -->
  <button type="button" onclick="demoLogin()" class="demo-btn">Use Demo Login</button>
-  
+
+ <p class="made-by">
+  Made by - 
+  <a href="https://ahmad-hammad-khan-portfolio.netlify.app/" target="_blank">
+    Ahmad Hammad Khan
+  </a>
+</p>
+  </div>
+ 
 
   <script>
-    function logout() {
-      localStorage.removeItem("token");
-      window.location.href = "index.html";
-    }
+//     function logout() {
+//       localStorage.removeItem("token");
+//       window.location.href = "index.html";
+//     }
 
-    document.getElementById("loginForm").addEventListener("submit", async (e) => {
-      e.preventDefault();
-      const res = await fetch("https://hostel-gate-tracker.onrender.com/login", {
-  method: "POST",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({
-    username: document.getElementById("username").value,
-    password: document.getElementById("password").value
-  })
+//     document.getElementById("loginForm").addEventListener("submit", async (e) => {
+//       e.preventDefault();
+//       const res = await fetch("https://hostel-gate-tracker.onrender.com/login", {
+//   method: "POST",
+//   headers: { "Content-Type": "application/json" },
+//   body: JSON.stringify({
+//     username: document.getElementById("username").value,
+//     password: document.getElementById("password").value
+//   })
+// });
+
+
+//       const data = await res.json();
+//       if (data.token) {
+//         alert("Login successful");
+//         localStorage.setItem("token", data.token);
+//         window.location.href = "home.html";
+//       } else {
+//         alert(data.message);
+//       }
+//     });
+
+// function demoLogin(){
+//   document.getElementById("username").value = "guard";
+//   document.getElementById("password").value = "123";
+// }
+function logout() {
+  localStorage.removeItem("token");
+  window.location.href = "index.html";
+}
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+  e.preventDefault();
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+  if(username === "guard" && password === "123"){
+      alert("Login successful");
+      localStorage.setItem("token","demo-token");
+      window.location.href = "home.html";
+  } 
+  else{
+      alert("Invalid Username or Password");
+  }
 });
-
-
-      const data = await res.json();
-      if (data.token) {
-        alert("Login successful");
-        localStorage.setItem("token", data.token);
-        window.location.href = "home.html";
-      } else {
-        alert(data.message);
-      }
-    });
 
 function demoLogin(){
   document.getElementById("username").value = "guard";

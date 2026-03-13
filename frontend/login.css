@@ -143,3 +143,20 @@ color: var(--button-text);
   background: #1da1d2;
   color: white;
 }
+
+.made-by{
+  margin-top: 12px;
+  font-size: 14px;
+  color: #555;
+  text-align: center;
+}
+
+.made-by a{
+  color: #1da1d2;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.made-by a:hover{
+  text-decoration: underline;
+}
