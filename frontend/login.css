@@ -124,3 +124,22 @@ color: var(--button-text);
 .links a:hover {
   text-decoration: underline;
 }
+
+.demo-btn{
+  width: 100%;
+  margin-top: 10px;
+  padding: 10px;
+  border: 2px solid #1da1d2;
+  background: transparent;
+  color: #1da1d2;
+  font-size: 15px;
+  font-weight: 600;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.demo-btn:hover{
+  background: #1da1d2;
+  color: white;
+}

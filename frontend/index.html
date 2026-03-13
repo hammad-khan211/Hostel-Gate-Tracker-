@@ -14,24 +14,19 @@
 
   </header>
 
-  <div class="login-card">
-    <img src="https://cdn.pixabay.com/photo/2023/10/09/08/59/security-8303673_1280.png" class="guard-icon">
+<div class="login-card">
+  <img src="https://cdn.pixabay.com/photo/2023/10/09/08/59/security-8303673_1280.png" class="guard-icon">
 
-    <h2>Security Guard Login</h2>
+  <h2>Security Guard Login</h2>
 
-    <form id="loginForm">
-      <input type="text" id="username" placeholder="Username" required>
-      <input type="password" id="password" placeholder="Password" required>
-      <button type="submit" class="btn-login">Login</button>
-    </form>
+  <form id="loginForm">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <button type="submit" class="btn-login">Login</button>
+  </form>
 
-    <div class="links">
-      <a href="https://www.abes.ac.in" target="_blank">Visit ABES College Website</a>
-      <a href="https://ahmad-hammad-khan-portfolio.netlify.app/" target="_blank">Made By - Ahmad Hammad Khan</a>
-      
-
-    </div>
-  </div>
+  <!-- Demo credentials -->
+ <button type="button" onclick="demoLogin()" class="demo-btn">Use Demo Login</button>
   
 
   <script>
@@ -61,6 +56,11 @@
         alert(data.message);
       }
     });
+
+function demoLogin(){
+  document.getElementById("username").value = "guard";
+  document.getElementById("password").value = "123";
+}
   </script>
 </body>
 
