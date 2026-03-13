@@ -106,8 +106,13 @@ app.put("/exit/:id",async (req, res) => {
 });
 
 app.get("/logs", async (req, res) => {
-  const logs = await Entry.find();
-  res.json(logs);
+  try {
+    const logs = await Entry.find().sort({ time_out: -1 });
+    res.json(logs);
+  } catch (err) {
+    console.error("LOG FETCH ERROR:", err);
+    res.status(500).send({ message: "Error fetching logs", error: err.message });
+  }
 });
 
 // DELETE ALL LOGS
