@@ -68,7 +68,7 @@ app.post("/login", async (req, res) => {
 
 
 // -------- Entry System --------
-app.post("/entry", auth, async (req, res) => {
+app.post("/entry", async (req, res) => {
   const data = new Entry({
     ...req.body,
     status: "OUT",
@@ -79,7 +79,7 @@ app.post("/entry", auth, async (req, res) => {
   res.send({ message: "Entry Added" });
 });
 
-app.put("/exit/:id", auth, async (req, res) => {
+app.put("/exit/:id",async (req, res) => {
   await Entry.findByIdAndUpdate(req.params.id, {
     status: "IN",
     time_in: new Date()
@@ -88,7 +88,7 @@ app.put("/exit/:id", auth, async (req, res) => {
   res.send({ message: "Marked IN" });
 });
 
-app.get("/logs", auth, async (req, res) => {
+app.get("/logs", async (req, res) => {
   const logs = await Entry.find();
   res.json(logs);
 });
@@ -104,7 +104,7 @@ app.delete("/clear-logs", async (req, res) => {
 });
 
 // EXPORT LOGS AS CSV
-app.get("/export-csv", auth, async (req, res) => {
+app.get("/export-csv", async (req, res) => {
   try {
     const logs = await Entry.find().lean();
 
@@ -138,7 +138,7 @@ app.get("/export-csv", auth, async (req, res) => {
 const PDFDocument = require("pdfkit");
 
 // EXPORT LOGS AS PDF
-app.get("/export-pdf", auth, async (req, res) => {
+app.get("/export-pdf", async (req, res) => {
   try {
     const logs = await Entry.find().lean();
 
