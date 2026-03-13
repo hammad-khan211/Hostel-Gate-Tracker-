@@ -69,14 +69,31 @@ app.post("/login", async (req, res) => {
 
 // -------- Entry System --------
 app.post("/entry", async (req, res) => {
-  const data = new Entry({
-    ...req.body,
-    status: "OUT",
-    time_out: new Date()
-  });
+  try {
+    const { name, roll, room, block, purpose } = req.body;
 
-  await data.save();
-  res.send({ message: "Entry Added" });
+    if (!name || !roll || !room) {
+      return res.status(400).send({ message: "Missing required fields" });
+    }
+
+    const entry = new Entry({
+      name,
+      roll,
+      room,
+      block,
+      purpose,
+      status: "OUT",
+      time_out: new Date()
+    });
+
+    await entry.save();
+
+    res.send({ message: "Entry Added" });
+
+  } catch (err) {
+    console.error("ENTRY ERROR:", err);
+    res.status(500).send({ message: "Entry failed", error: err.message });
+  }
 });
 
 app.put("/exit/:id",async (req, res) => {
